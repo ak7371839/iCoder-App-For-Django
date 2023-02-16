@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+  <title>iCoder Blog</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">iCoder</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link {% block hactivate %}{% endblock hactivate %}" href="/">Home <span
+              class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% block aactivate %}{% endblock aactivate %}" href="/about">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% block bactivate %}{% endblock bactivate %}" href="/blog/bloghome">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% block cactivate %}{% endblock cactivate %}" href="/contact">Contact Us</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0" method="get" action="/blog/search">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search_her"
+          name="search_her">
+        <button class="btn btn-primary my-2 my-sm-0 mx-2" type="submit">Search</button>
+      </form>
+      {% comment %} user main {% endcomment %}
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav mr-4">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href='#' id="navbarDropdown" role="button" data-toggle="dropdown"> Welcome
+            {{request.user}}</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <center><span class="dropdown-header">Account</span></center>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/handlelogout">Logout Account</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/admin" target="__blank">Admin Panel</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    {% else %}
+    {% comment %} Login {% endcomment %}
+    <button type="button" class="btn btn-success mx-1 my-3 my-sm-0" data-toggle="modal" data-target="#login">
+      Login
+    </button>
+    {% comment %} Singup {% endcomment %}
+    <button type="button" class="btn btn-success mx-1 my-3 my-sm-0" data-toggle="modal" data-target="#sinup">
+      SingUp
+    </button>
+    {% endif %}
+    <!-- Login Modal -->
+    <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Login User</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/handlelogin" method="POST">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Username</label>
+                <input type="username" class="form-control" id="username" name="loginusername"
+                  placeholder="Enter UserName">
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="pass1" name="loginpassword"
+                  placeholder="Enter Password">
+              </div>
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Singup Modal -->
+    <div class="modal fade" id="sinup" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Sing Up Form</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/handlesingup" method="POST">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Username</label>
+                <input type="username" class="form-control" name="username" id="username" placeholder="Enter UserName"
+                  required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">First Name</label>
+                <input type="firstname" class="form-control" name="fisrtname" id="firstname"
+                  placeholder="Enter FirstName" required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                <input type="lastname" class="form-control" name="lastname" id="lastname" placeholder="Enter LastName"
+                  required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Password</label>
+                <input type="password" class="form-control" name="pass1" id="pass1" placeholder="Enter Password"
+                  required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Enter Confirm Password"
+                  required>
+              </div>
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="my-0">
+    {% if messages %}
+    {% for message in messages %}
+    <div{% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %}
+      role="alert">
+      <strong>Message: </strong> {{ message }}.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {% endfor %}
+      {% endif %}
+  </div>
+  <div class="container my-3">
+    {% if user.is_authenticated %}
+    {% block body %}{% endblock body %}
+    {% else %}
+      <h1>Not Found</h1>
+    {% endif %}
+  </div>
+  <!-- Footer -->
+  <div class="container-flex">
+    <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
+      <div class="container text-center">
+        <small>Copyright &copy; iCoder.com</small>
+      </div>
+    </footer>
+  </div>
+  <!-- Footer End -->
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+{% block js %}{% endblock js %}
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+-->
+</body>
+
+</html>

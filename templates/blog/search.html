@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block bactivate %}active{% endblock bactivate %}
+{% block body %}
+{% if allPost|length < 1 %}
+<center>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p class="text-primary">{{query|slice:":50"}}</p>
+    <br>
+    <h1 class="text-danger">Not Found 404</h1>
+</center>
+{% endif %}
+{% for post in allPost %}
+<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+    <div class="col p-4 d-flex flex-column position-static">
+      <h3 class="mb-0"><a href="{{post.slug}}" class="text-dark">{{post.title}}</a></h3>
+      <div class="mb-1 text-muted">Auther By {{post.author}}</div>
+      <p class="card-text mb-auto my-2">{{post.contant|truncatewords:50}}</p>
+      <a href="{{post.slug}}" class="my-3"><button class="btn btn-primary">Continue reading</button></a>
+    </div>
+  </div>
+{% endfor %}
+{% endblock body %}

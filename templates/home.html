@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block hactivate %}active{% endblock hactivate %}
+{% block body %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to iCoder!</h1>
+    <p class="lead">Training a Programers in besting performance.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for everyone in my website.</p>
+    <a class="btn btn-primary btn-lg" href="/blog/bloghome" role="button">Go To Blog</a>
+    {% comment %} <a class="btn btn-primary btn-lg" href="/about" role="button">Go To About Me</a> {% endcomment %}
+  </div>
+
+  <h1>Popular BlogPost</h1>
+
+  {% for post in allPost %}
+    <div class="container">
+      <div class="container">
+      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0"><a href="blog/{{post.slug}}" class="text-dark">{{post.title}}</a></h3>
+          <div class="mb-1 text-muted">Auther By {{post.author}}</div>
+          <p class="card-text mb-auto my-2">{{post.contant|slice:":300"}}...</p>
+          <a href="blog/{{post.slug}}" class="my-3"><button class="btn btn-primary">Continue reading</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+{% endblock body %}

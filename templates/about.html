@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block aactivate %}active{% endblock aactivate %}
+{% block body %}
+<div class="jumbotron">
+  <h1 class="display-4">Welcome to About Us!</h1>
+  <p class="lead">Information for Others.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <a class="btn btn-primary btn-lg" href="/contact" role="button">Go to Contact</a>
+</div>
+<div class="container-flex">
+<div id='info'>
+  <h1>INFORMATION: </h1>
+  {% for about in allAbout %}
+  <div class="accordion" id="accordionExample">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h2 class="mb-0">
+            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              {{about.title}}
+            </button>
+          </h2>
+        </div>
+    
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div class="card-body">
+              {{about.body}}
+          </div>
+        </div>
+      </div>
+  {% endfor %}
+  <div class="container my-3 mx-3"><h1>Best Of Luck For Information</h1></div>
+</div>
+</div>
+</div>
+{% endblock body %}

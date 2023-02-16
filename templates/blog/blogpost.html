@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block bactivate %}active{% endblock bactivate %}
+{% block body %}
+<h1>{{post.title}} Authod By {{post.author}}</h1>
+<hr>
+{{post.contant|safe}}
+<hr>
+{% endblock body %}

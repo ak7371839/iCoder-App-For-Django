@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en-us" dir="ltr">
+<head>
+<title>iCoder Admin Panel</title>
+<link rel="stylesheet" href="/static/admin/css/base.css">
+
+  <link rel="stylesheet" href="/static/admin/css/dark_mode.css">
+
+
+  <link rel="stylesheet" href="/static/admin/css/nav_sidebar.css">
+  <script src="/static/admin/js/nav_sidebar.js" defer></script>
+
+<link rel="stylesheet" href="/static/admin/css/dashboard.css">
+<!-- BootStap Link -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="/static/admin/css/responsive.css">
+    
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+<body class=" dashboard" data-admin-utc-offset="0">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name">iCoder Admin Panel</h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            
+                Welcome, <strong>Admin</strong>.                       
+                
+                <form id="logout-form" method="post" action="/handlelogout">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="vEzVDQVV5xAtGXGSyyMVbPxtjzYGX17VijBQhEnth24PWXCoyUo8fqMezYZ3aj36">
+                    <button type="submit">Log out</button>
+                    {% csrf_token %}
+                </form>
+            
+        </div>
+        
+        
+        
+    </div>
+    
+    <!-- END Header -->
+
+    <div class="my-0">
+      {% if messages %}
+      {% for message in messages %}
+      <div{% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %}
+        role="alert">
+        <strong>Message: </strong> {{ message }}.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {% endfor %}
+        {% endif %}
+    </div>
+   
+    
+
+    <div class="main" id="main">
+      
+        
+      
+      <div class="content">
+        
+          
+        
+        <!-- Content -->
+        <div id="content" class="colMS">
+          
+          <h1>iCoder Website</h1>
+          <hr>
+          <h2><b>Login User : Admin</b></h2>
+          <p>Main Account : Arpit, UserName: Arpit, Password: arpitadmin</p>
+          <hr>
+          <h1>(Database Use Of Website Pages)</h1>
+          <p>(Home Page, About Page, BlogHome/BlogPost Page, Contact Us becase Save a Contact)</p>
+          <hr class="my-3">
+          <a href="/handleblogs">
+            <button class="btn-success">
+              Thown A Blog Only Blog Page
+            </button>
+          </a>
+          <hr class="my-2">
+          <p><b>Blog Post</b></p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Sno </th>
+                <th scope="col">Title </th>
+                <th scope="col">Author </th>
+                <th scope="col">Slug </th>
+                <th scope="col">Contant </th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for post in allPost %}
+              <tr>
+                <th scope="row">{{post.id}}</th>
+                <td>{{post.title}}</td>
+                <td>{{post.author}}</td>
+                <td>{{post.slug}}</td>
+                <td>{{post.contant|truncatewords:2}}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <a href="/admin/blog/blog/add/">
+            <button class="btn btn-primary mx-2">
+                Add Posts
+            </button>
+          </a>
+          <label class="text-warning">Do We Logout A Admin Enter New Admin</label>
+          <hr>
+          <p><b>Contact</b></p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id </th>
+                <th scope="col">Name </th>
+                <th scope="col">Email </th>
+                <th scope="col">Phone </th>
+                <th scope="col">Mess </th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for con in allCon %}
+              <tr>
+                <th scope="row">{{con.id}}</th>
+                <td>{{con.name|truncatewords:1}}</td>
+                <td>{{con.email}}</td>
+                <td>{{con.phone}}</td>
+                <td>{{con.mess|truncatewords:0}}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <a href="/contact">
+            <button class="btn btn-primary mx-2">
+                Add Contacts
+            </button>
+          </a>
+          <label class="text-warning">Do We Logout A Admin</label>
+          <hr>
+          <a href="/admin/">
+            <button class="btn btn-danger">
+                Main Admin Link
+            </button>
+          </a>
+          
+           <br class="clear">
+        </div>
+        <!-- END Content -->
+        <div id="footer"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+<div class="container-flex">
+    <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
+      <div class="container text-center">
+        <small>iCoder Admin User</small>
+      </div>
+    </footer>
+  </div>
+  <!-- Footer End -->
+</div>
+<!-- END Container -->
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</html>
